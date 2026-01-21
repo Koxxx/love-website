@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เป็นแฟนกันมั้ย 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      text-align: center;
+    }
+
+    .page {
+      display: none;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .active {
+      display: block;
+    }
+
+    input, button {
+      width: 80%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background: hotpink;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .countdown {
+      font-size: 90px;
+      font-weight: bold;
+      color: #ff1493;
+      margin-top: 40px;
+    }
+
+    .envelope {
+      font-size: 90px;
+      margin-top: 40px;
+      animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== PAGE 4 STYLE ===== */
+    #page4 {
+      background-color: #ffe4ec; /* ชมพูอ่อน */
+    }
+
+    .letter-box {
+      background-image: url("letter-bg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      padding: 70px 30px;
+      margin: 20px auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .letter-box h1,
+    .letter-box p {
+      color: #4a2c2a;
+    }
+
+    .letter-box video {
+      width: 100%;
+      margin: 20px 0;
+      border-radius: 12px;
+    }
+
+    .letter-box img {
+      margin: 6px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- PAGE 1 LOGIN -->
+<div class="page active" id="page1">
+  <h2>เข้าสู่หัวใจเรา 💕</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">เข้าสู่ระบบ</button>
+</div>
+
+<!-- PAGE 1.5 ERROR -->
+<div class="page" id="page1_5">
+  <h2>😢</h2>
+  <p>เข้าสู่ระบบไม่ผ่าน</p>
+  <button onclick="go('page1')">ลองใหม่อีกครั้ง</button>
+</div>
+
+<!-- PAGE 2 COUNTDOWN -->
+<div class="page" id="page2">
+  <h2>กำลังจะมีอะไรบางอย่าง 💓</h2>
+  <div class="countdown" id="count">3</div>
+</div>
+
+<!-- PAGE 3 ENVELOPE -->
+<div class="page" id="page3">
+  <div class="envelope">💌</div>
+  <p>ลองเปิดดูสิ 👀 แอบดู</p>
+  <button onclick="openLove()">เปิดซอง</button>
+</div>
+
+<!-- PAGE 4 LOVE -->
+<div class="page" id="page4">
+  <div class="letter-box">
+
+    <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
+    <p>
+      เราอยากดูแลกันไปนาน ๆ  
+      อยู่ข้างกันในทุกวัน  
+      และอยากมีเธอเป็นคนพิเศษของเรา
+    </p>
+
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <div>
+      <img src="img1.jpg" width="45%">
+      <img src="img2.jpg" width="45%">
+      <img src="img3.jpg" width="45%">
+      <img src="img4.jpg" width="45%">
+    </div>
+
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" src="song.mp3" preload="auto"></audio>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function login() {
+  const u = document.getElementById('user').value;
+  const p = document.getElementById('pass').value;
+
+  if (u === "Kong" && p === "123456") {
+    go('page2');
+    startCountdown();
+  } else {
+    go('page1_5');
+  }
+}
+
+function startCountdown() {
+  let n = 3;
+  const el = document.getElementById('count');
+
+  const timer = setInterval(() => {
+    n--;
+    el.innerText = n;
+    if (n === 0) {
+      clearInterval(timer);
+      go('page3');
+    }
+  }, 1000);
+}
+
+function openLove() {
+  go('page4');
+  const music = document.getElementById('music');
+  music.volume = 0.3;
+  music.play().catch(() => {
+    alert("แตะหน้าจอ 1 ครั้งเพื่อเปิดเพลง 🎵");
+  });
+}
+</script>
+
+</body>
+</html>
+
