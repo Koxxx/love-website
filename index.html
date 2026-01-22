@@ -60,6 +60,7 @@ button{
   background:#fff0f5;
 }
 
+/* กล่องยึดกลางจอ */
 .heart-wrapper{
   position:absolute;
   top:50%;
@@ -69,6 +70,7 @@ button{
   height:300px;
 }
 
+/* อีโมจิจดหมาย */
 .heart-fly{
   position:absolute;
   left:50%;
@@ -78,6 +80,19 @@ button{
   animation:heartMove 10s linear infinite;
 }
 
+/* เส้นหัวใจสีแดง */
+.heart-fly::after{
+  content:"❤️";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:20px;
+  opacity:0;
+  animation:heartTrail 10s linear infinite;
+}
+
+/* เส้นทางหัวใจ */
 @keyframes heartMove{
   0%   { transform:translate(-50%, -50%) translate(0,-90px); }
   15%  { transform:translate(-50%, -50%) translate(90px,-140px); }
@@ -88,74 +103,74 @@ button{
   100% { transform:translate(-50%, -50%) translate(0,-90px); }
 }
 
+/* เอฟเฟกต์หัวใจตามทาง */
+@keyframes heartTrail{
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+  10%  { opacity:.8; transform:translate(-50%,-50%) scale(0.7); }
+  20%  { opacity:0; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0; }
+}
+
+/* ข้อความ + ปุ่ม */
 .page3-ui{
   position:absolute;
-  bottom:80px;
+  bottom:90px;
   width:100%;
   text-align:center;
 }
 
-/* ===== PAGE 4 (ซองจดหมายกลางจอ) ===== */
+/* ===== PAGE 4 ===== */
 #page4{
   background:#ffe4ec;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-/* กล่องครอบ */
-.letter-wrapper{
-  width:360px;
-  min-height:640px;
-  position:relative;
-  border-radius:18px;
-  padding:18px;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      #e63946 0 14px,
-      #ffffff 14px 28px,
-      #1d3557 28px 42px,
-      #ffffff 42px 56px
-    );
-}
-
-/* ตัวซองด้านใน */
-.letter-box{
-  background:#fffaf2;
-  height:100%;
-  border-radius:14px;
-  padding:22px;
-  box-sizing:border-box;
+  padding:40px 20px;
   text-align:center;
-  overflow-y:auto;
 }
 
-.letter-box h1{
-  margin-top:10px;
-  color:#4a2c2a;
+.letter-box{
+  background-image:url("letter-bg.png");
+  background-size:cover;
+  background-position:center;
+  padding:60px 25px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 
+.letter-box h1,
 .letter-box p{
   color:#4a2c2a;
-  line-height:1.6;
 }
 
 .letter-box video{
   width:100%;
-  margin:16px 0;
+  margin:20px 0;
   border-radius:12px;
 }
 
-.photo-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+.letter-box img{
+  width:45%;
+  margin:6px;
+  border-radius:12px;
 }
 
-.photo-grid img{
+/* ปุ่มเป็นแฟน */
+.love-call{
+  margin-top:25px;
   width:100%;
-  border-radius:10px;
+  padding:16px;
+  font-size:18px;
+  background:#ff4d88;
+  color:white;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(255,77,136,.4);
+  animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.05); }
+  100%{ transform:scale(1); }
 }
 </style>
 </head>
@@ -170,6 +185,7 @@ button{
   <button onclick="login()">เข้าสู่ระบบ</button>
 </div>
 
+<!-- PAGE ERROR -->
 <div class="page" id="page1_5" style="text-align:center; padding-top:120px;">
   <h2>😢</h2>
   <p>เข้าสู่ระบบไม่ผ่าน</p>
@@ -196,26 +212,28 @@ button{
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-  <div class="letter-wrapper">
-    <div class="letter-box">
-      <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
-      <p>
-        เราอยากดูแลกันไปนาน ๆ<br>
-        อยู่ข้างกันในทุกวัน<br>
-        และอยากมีเธอเป็นคนพิเศษของเรา
-      </p>
+  <div class="letter-box">
+    <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
+    <p>
+      เราอยากดูแลกันไปนาน ๆ<br>
+      อยู่ข้างกันในทุกวัน<br>
+      และอยากมีเธอเป็นคนพิเศษของเรา
+    </p>
 
-      <video controls>
-        <source src="video.mp4" type="video/mp4">
-      </video>
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+    </video>
 
-      <div class="photo-grid">
-        <img src="img1.jpg">
-        <img src="img2.jpg">
-        <img src="img3.jpg">
-        <img src="img4.jpg">
-      </div>
+    <div>
+      <img src="img1.jpg">
+      <img src="img2.jpg">
+      <img src="img3.jpg">
+      <img src="img4.jpg">
     </div>
+
+    <button class="love-call" onclick="callLove()">
+      เป็นแฟนกัน 💖
+    </button>
   </div>
 </div>
 
@@ -255,10 +273,16 @@ function openLove(){
   m.volume=0.3;
   m.play().catch(()=>alert("แตะหน้าจอเพื่อเปิดเพลง 🎵"));
 }
+
+function callLove(){
+  window.location.href="tel:0958682658";
+}
 </script>
 
 </body>
 </html>
+
+
 
 
 
