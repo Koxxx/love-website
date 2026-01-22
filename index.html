@@ -1,102 +1,123 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>เป็นแฟนกันมั้ย 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>เป็นแฟนกันมั้ย 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff0f5;
-      text-align: center;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#fff0f5;
+  text-align:center;
+}
 
-    .page {
-      display: none;
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
+/* ===== PAGE CONTROL ===== */
+.page{
+  display:none;
+  max-width:480px;
+  margin:0 auto;
+  padding:20px;
+  min-height:100vh;
+  box-sizing:border-box;
+}
+.active{ display:block; }
 
-    .active {
-      display: block;
-    }
+input,button{
+  width:80%;
+  padding:12px;
+  margin:10px 0;
+  font-size:16px;
+}
 
-    input, button {
-      width: 80%;
-      padding: 12px;
-      margin: 10px 0;
-      font-size: 16px;
-    }
+button{
+  background:hotpink;
+  color:white;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+}
 
-    button {
-      background: hotpink;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-    }
+/* ===== PAGE 2 ===== */
+.countdown{
+  font-size:90px;
+  font-weight:bold;
+  color:#ff1493;
+  margin-top:40px;
+}
 
-    .countdown {
-      font-size: 90px;
-      font-weight: bold;
-      color: #ff1493;
-      margin-top: 40px;
-    }
+/* ===== PAGE 3 CENTER + HEART ===== */
+#page3{
+  display:flex;
+  flex-direction:column;
+  justify-content:center; /* กลางแนวตั้ง */
+  align-items:center;     /* กลางแนวนอน */
+}
 
-    .envelope {
-      font-size: 90px;
-      margin-top: 40px;
-      animation: spin 6s linear infinite;
-    }
+.heart-container{
+  position:relative;
+  width:300px;
+  height:260px;
+}
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+.heart-fly{
+  position:absolute;
+  width:80px;
+  animation:heartMove 6s linear infinite;
+}
 
-    /* ===== PAGE 4 STYLE ===== */
-    #page4 {
-      background-color: #ffe4ec; /* ชมพูอ่อน */
-    }
+/* เส้นทางหัวใจ */
+@keyframes heartMove{
+  0%   { transform:translate(150px,40px); }
+  10%  { transform:translate(230px,0px); }
+  20%  { transform:translate(290px,60px); }
+  30%  { transform:translate(250px,140px); }
+  40%  { transform:translate(150px,210px); }
+  50%  { transform:translate(50px,140px); }
+  60%  { transform:translate(10px,60px); }
+  70%  { transform:translate(70px,0px); }
+  80%  { transform:translate(150px,40px); }
+  100% { transform:translate(150px,40px); }
+}
 
-    .letter-box {
-      background-image: url("letter-bg.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+/* ===== PAGE 4 ===== */
+#page4{
+  background:#ffe4ec;
+}
 
-      padding: 70px 30px;
-      margin: 20px auto;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
+.letter-box{
+  background-image:url("letter-bg.png");
+  background-size:cover;
+  background-position:center;
+  padding:70px 30px;
+  margin:20px auto;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
 
-    .letter-box h1,
-    .letter-box p {
-      color: #4a2c2a;
-    }
+.letter-box h1,
+.letter-box p{
+  color:#4a2c2a;
+}
 
-    .letter-box video {
-      width: 100%;
-      margin: 20px 0;
-      border-radius: 12px;
-    }
+.letter-box video{
+  width:100%;
+  margin:20px 0;
+  border-radius:12px;
+}
 
-    .letter-box img {
-      margin: 6px;
-      border-radius: 12px;
-    }
-  </style>
+.letter-box img{
+  width:45%;
+  margin:6px;
+  border-radius:12px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- PAGE 1 LOGIN -->
+<!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h2>เข้าสู่หัวใจเรา 💕</h2>
   <input id="user" placeholder="Username">
@@ -104,30 +125,31 @@
   <button onclick="login()">เข้าสู่ระบบ</button>
 </div>
 
-<!-- PAGE 1.5 ERROR -->
+<!-- PAGE ERROR -->
 <div class="page" id="page1_5">
   <h2>😢</h2>
   <p>เข้าสู่ระบบไม่ผ่าน</p>
-  <button onclick="go('page1')">ลองใหม่อีกครั้ง</button>
+  <button onclick="go('page1')">ลองใหม่</button>
 </div>
 
-<!-- PAGE 2 COUNTDOWN -->
+<!-- PAGE 2 -->
 <div class="page" id="page2">
   <h2>กำลังจะมีอะไรบางอย่าง 💓</h2>
   <div class="countdown" id="count">3</div>
 </div>
 
-<!-- PAGE 3 ENVELOPE -->
+<!-- PAGE 3 -->
 <div class="page" id="page3">
-  <div class="envelope">💌</div>
-  <p>ลองเปิดดูสิ 👀 แอบดู</p>
+  <div class="heart-container">
+    <img src="img5.jpg" class="heart-fly">
+  </div>
+  <p>ลองเปิดดูสิ 👀</p>
   <button onclick="openLove()">เปิดซอง</button>
 </div>
 
-<!-- PAGE 4 LOVE -->
+<!-- PAGE 4 -->
 <div class="page" id="page4">
   <div class="letter-box">
-
     <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
     <p>
       เราอยากดูแลกันไปนาน ๆ  
@@ -140,61 +162,57 @@
     </video>
 
     <div>
-      <img src="img1.jpg" width="45%">
-      <img src="img2.jpg" width="45%">
-      <img src="img3.jpg" width="45%">
-      <img src="img4.jpg" width="45%">
+      <img src="img1.jpg">
+      <img src="img2.jpg">
+      <img src="img3.jpg">
+      <img src="img4.jpg">
     </div>
-
   </div>
 </div>
 
-<!-- MUSIC -->
-<audio id="music" src="song.mp3" preload="auto"></audio>
+<audio id="music" src="song.mp3"></audio>
 
 <script>
-function go(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 
-function login() {
-  const u = document.getElementById('user').value;
-  const p = document.getElementById('pass').value;
-
-  if (u === "Kong" && p === "123456") {
+function login(){
+  const u=document.getElementById('user').value;
+  const p=document.getElementById('pass').value;
+  if(u==="Kong" && p==="123456"){
     go('page2');
     startCountdown();
-  } else {
+  }else{
     go('page1_5');
   }
 }
 
-function startCountdown() {
-  let n = 3;
-  const el = document.getElementById('count');
-
-  const timer = setInterval(() => {
+function startCountdown(){
+  let n=3;
+  const el=document.getElementById('count');
+  const t=setInterval(()=>{
     n--;
-    el.innerText = n;
-    if (n === 0) {
-      clearInterval(timer);
+    el.innerText=n;
+    if(n===0){
+      clearInterval(t);
       go('page3');
     }
-  }, 1000);
+  },1000);
 }
 
-function openLove() {
+function openLove(){
   go('page4');
-  const music = document.getElementById('music');
-  music.volume = 0.3;
-  music.play().catch(() => {
-    alert("แตะหน้าจอ 1 ครั้งเพื่อเปิดเพลง 🎵");
-  });
+  const m=document.getElementById('music');
+  m.volume=0.3;
+  m.play().catch(()=>alert("แตะหน้าจอเพื่อเปิดเพลง 🎵"));
 }
 </script>
 
 </body>
 </html>
+
+
 
