@@ -60,7 +60,6 @@ button{
   background:#fff0f5;
 }
 
-/* กล่องยึดกลางจอ */
 .heart-wrapper{
   position:absolute;
   top:50%;
@@ -70,7 +69,7 @@ button{
   height:300px;
 }
 
-/* อีโมจิจดหมาย */
+/* จดหมาย */
 .heart-fly{
   position:absolute;
   left:50%;
@@ -80,14 +79,14 @@ button{
   animation:heartMove 10s linear infinite;
 }
 
-/* เส้นหัวใจสีแดง */
+/* เส้นหัวใจตามทาง */
 .heart-fly::after{
   content:"❤️";
   position:absolute;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  font-size:20px;
+  font-size:18px;
   opacity:0;
   animation:heartTrail 10s linear infinite;
 }
@@ -103,18 +102,17 @@ button{
   100% { transform:translate(-50%, -50%) translate(0,-90px); }
 }
 
-/* เอฟเฟกต์หัวใจตามทาง */
+/* เอฟเฟกต์หัวใจโผล่เป็นช่วง ๆ */
 @keyframes heartTrail{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
-  10%  { opacity:.8; transform:translate(-50%,-50%) scale(0.7); }
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(.3); }
+  10%  { opacity:.8; transform:translate(-50%,-50%) scale(.7); }
   20%  { opacity:0; transform:translate(-50%,-50%) scale(1); }
   100% { opacity:0; }
 }
 
-/* ข้อความ + ปุ่ม */
 .page3-ui{
   position:absolute;
-  bottom:90px;
+  bottom:80px;
   width:100%;
   text-align:center;
 }
@@ -122,17 +120,35 @@ button{
 /* ===== PAGE 4 ===== */
 #page4{
   background:#ffe4ec;
-  padding:40px 20px;
-  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.letter-wrapper{
+  width:360px;
+  min-height:640px;
+  position:relative;
+  border-radius:18px;
+  padding:18px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #e63946 0 14px,
+      #ffffff 14px 28px,
+      #1d3557 28px 42px,
+      #ffffff 42px 56px
+    );
 }
 
 .letter-box{
-  background-image:url("letter-bg.png");
-  background-size:cover;
-  background-position:center;
-  padding:60px 25px;
-  border-radius:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  background:#fffaf2;
+  height:100%;
+  border-radius:14px;
+  padding:22px;
+  box-sizing:border-box;
+  text-align:center;
+  overflow-y:auto;
 }
 
 .letter-box h1,
@@ -142,21 +158,26 @@ button{
 
 .letter-box video{
   width:100%;
-  margin:20px 0;
+  margin:16px 0;
   border-radius:12px;
 }
 
-.letter-box img{
-  width:45%;
-  margin:6px;
-  border-radius:12px;
+.photo-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.photo-grid img{
+  width:100%;
+  border-radius:10px;
 }
 
 /* ปุ่มเป็นแฟน */
 .love-call{
-  margin-top:25px;
+  margin-top:18px;
   width:100%;
-  padding:16px;
+  padding:14px;
   font-size:18px;
   background:#ff4d88;
   color:white;
@@ -185,7 +206,6 @@ button{
   <button onclick="login()">เข้าสู่ระบบ</button>
 </div>
 
-<!-- PAGE ERROR -->
 <div class="page" id="page1_5" style="text-align:center; padding-top:120px;">
   <h2>😢</h2>
   <p>เข้าสู่ระบบไม่ผ่าน</p>
@@ -212,28 +232,30 @@ button{
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-  <div class="letter-box">
-    <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
-    <p>
-      เราอยากดูแลกันไปนาน ๆ<br>
-      อยู่ข้างกันในทุกวัน<br>
-      และอยากมีเธอเป็นคนพิเศษของเรา
-    </p>
+  <div class="letter-wrapper">
+    <div class="letter-box">
+      <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
+      <p>
+        เราอยากดูแลกันไปนาน ๆ<br>
+        อยู่ข้างกันในทุกวัน<br>
+        และอยากมีเธอเป็นคนพิเศษของเรา
+      </p>
 
-    <video controls>
-      <source src="video.mp4" type="video/mp4">
-    </video>
+      <video controls>
+        <source src="video.mp4" type="video/mp4">
+      </video>
 
-    <div>
-      <img src="img1.jpg">
-      <img src="img2.jpg">
-      <img src="img3.jpg">
-      <img src="img4.jpg">
+      <div class="photo-grid">
+        <img src="img1.jpg">
+        <img src="img2.jpg">
+        <img src="img3.jpg">
+        <img src="img4.jpg">
+      </div>
+
+      <button class="love-call" onclick="callLove()">
+        เป็นแฟนกัน 💖
+      </button>
     </div>
-
-    <button class="love-call" onclick="callLove()">
-      เป็นแฟนกัน 💖
-    </button>
   </div>
 </div>
 
