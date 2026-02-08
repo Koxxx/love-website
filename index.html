@@ -6,23 +6,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== GLOBAL ===== */
 body{
   margin:0;
   font-family:Arial, sans-serif;
   background:#fff0f5;
+  overflow:hidden; /* 🔒 กัน scroll เห็นหน้าสุดท้าย */
 }
 
-/* ===== PAGE CONTROL ===== */
 .page{
   display:none;
   min-height:100vh;
   width:100%;
   position:relative;
 }
-.active{ display:block; }
 
+.page.active{
+  display:flex;
+}
+
+/* input / button */
 input,button{
   width:80%;
+  max-width:320px;
   padding:12px;
   margin:10px auto;
   font-size:16px;
@@ -37,16 +43,28 @@ button{
   cursor:pointer;
 }
 
-/* ===== PAGE 1 ===== */
+/* ===== PAGE 1 : LOGIN ===== */
 #page1{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  padding-top:80px;
 }
 
-/* ===== PAGE 2 ===== */
-#page2{
+/* ===== LOGIN FAIL ===== */
+#page1_5{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  padding-top:120px;
+}
+
+/* ===== PAGE 2 : COUNTDOWN ===== */
+#page2{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
 .countdown{
@@ -55,21 +73,19 @@ button{
   color:#ff1493;
 }
 
-/* ===== PAGE 3 ===== */
+/* ===== PAGE 3 : HEART ===== */
 #page3{
+  justify-content:center;
+  align-items:center;
   background:#fff0f5;
 }
 
 .heart-wrapper{
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
   width:300px;
   height:300px;
 }
 
-/* จดหมาย */
 .heart-fly{
   position:absolute;
   left:50%;
@@ -79,7 +95,6 @@ button{
   animation:heartMove 10s linear infinite;
 }
 
-/* เส้นหัวใจตามทาง */
 .heart-fly::after{
   content:"❤️";
   position:absolute;
@@ -91,23 +106,18 @@ button{
   animation:heartTrail 10s linear infinite;
 }
 
-/* เส้นทางหัวใจ */
 @keyframes heartMove{
   0%   { transform:translate(-50%, -50%) translate(0,-90px); }
-  15%  { transform:translate(-50%, -50%) translate(90px,-140px); }
-  30%  { transform:translate(-50%, -50%) translate(160px,-20px); }
-  45%  { transform:translate(-50%, -50%) translate(0,90px); }
-  60%  { transform:translate(-50%, -50%) translate(-160px,-20px); }
-  75%  { transform:translate(-50%, -50%) translate(-90px,-140px); }
+  25%  { transform:translate(-50%, -50%) translate(120px,0); }
+  50%  { transform:translate(-50%, -50%) translate(0,90px); }
+  75%  { transform:translate(-50%, -50%) translate(-120px,0); }
   100% { transform:translate(-50%, -50%) translate(0,-90px); }
 }
 
-/* เอฟเฟกต์หัวใจโผล่เป็นช่วง ๆ */
 @keyframes heartTrail{
-  0%   { opacity:0; transform:translate(-50%,-50%) scale(.3); }
-  10%  { opacity:.8; transform:translate(-50%,-50%) scale(.7); }
-  20%  { opacity:0; transform:translate(-50%,-50%) scale(1); }
-  100% { opacity:0; }
+  0%{opacity:0;}
+  15%{opacity:.8;}
+  30%{opacity:0;}
 }
 
 .page3-ui{
@@ -117,28 +127,25 @@ button{
   text-align:center;
 }
 
-/* ===== PAGE 4 ===== */
+/* ===== PAGE 4 : LETTER ===== */
 #page4{
-  background:#ffe4ec;
-  display:flex;
   justify-content:center;
   align-items:center;
+  background:#ffe4ec;
 }
 
 .letter-wrapper{
   width:360px;
-  min-height:640px;
-  position:relative;
+  height:640px;
   border-radius:18px;
   padding:18px;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      #e63946 0 14px,
-      #ffffff 14px 28px,
-      #1d3557 28px 42px,
-      #ffffff 42px 56px
-    );
+  background:repeating-linear-gradient(
+    45deg,
+    #e63946 0 14px,
+    #ffffff 14px 28px,
+    #1d3557 28px 42px,
+    #ffffff 42px 56px
+  );
 }
 
 .letter-box{
@@ -146,20 +153,8 @@ button{
   height:100%;
   border-radius:14px;
   padding:22px;
-  box-sizing:border-box;
   text-align:center;
   overflow-y:auto;
-}
-
-.letter-box h1,
-.letter-box p{
-  color:#4a2c2a;
-}
-
-.letter-box video{
-  width:100%;
-  margin:16px 0;
-  border-radius:12px;
 }
 
 .photo-grid{
@@ -173,25 +168,18 @@ button{
   border-radius:10px;
 }
 
-/* ปุ่มเป็นแฟน */
 .love-call{
   margin-top:18px;
   width:100%;
   padding:14px;
   font-size:18px;
   background:#ff4d88;
-  color:white;
-  border:none;
   border-radius:30px;
-  cursor:pointer;
-  box-shadow:0 6px 15px rgba(255,77,136,.4);
   animation:pulse 1.8s infinite;
 }
 
 @keyframes pulse{
-  0%{ transform:scale(1); }
   50%{ transform:scale(1.05); }
-  100%{ transform:scale(1); }
 }
 </style>
 </head>
@@ -206,7 +194,8 @@ button{
   <button onclick="login()">เข้าสู่ระบบ</button>
 </div>
 
-<div class="page" id="page1_5" style="text-align:center; padding-top:120px;">
+<!-- LOGIN FAIL -->
+<div class="page" id="page1_5">
   <h2>😢</h2>
   <p>เข้าสู่ระบบไม่ผ่าน</p>
   <button onclick="go('page1')">ลองใหม่</button>
@@ -223,7 +212,6 @@ button{
   <div class="heart-wrapper">
     <div class="heart-fly">💌</div>
   </div>
-
   <div class="page3-ui">
     <p>ลองเปิดดูสิ 👀</p>
     <button onclick="openLove()">เปิดซอง</button>
@@ -234,15 +222,14 @@ button{
 <div class="page" id="page4">
   <div class="letter-wrapper">
     <div class="letter-box">
-      <h1>เป็นแฟนกันมั้ย 💖🥰</h1>
+      <h1>เป็นแฟนกันมั้ย 💖</h1>
       <p>
         เราอยากดูแลกันไปนาน ๆ<br>
-        อยู่ข้างกันในทุกวัน<br>
-        และอยากมีเธอเป็นคนพิเศษของเรา
+        อยู่ข้างกันทุกวัน
       </p>
 
-      <video controls>
-        <source src="video.mp4" type="video/mp4">
+      <video controls width="100%">
+        <source src="video.mp4">
       </video>
 
       <div class="photo-grid">
@@ -252,9 +239,7 @@ button{
         <img src="img4.jpg">
       </div>
 
-      <button class="love-call" onclick="callLove()">
-        เป็นแฟนกัน 💖
-      </button>
+      <button class="love-call" onclick="callLove()">เป็นแฟนกัน 💖</button>
     </div>
   </div>
 </div>
@@ -281,7 +266,7 @@ function startCountdown(){
   const el=document.getElementById('count');
   const t=setInterval(()=>{
     n--;
-    el.innerText=n;
+    el.textContent=n;
     if(n===0){
       clearInterval(t);
       go('page3');
@@ -303,6 +288,8 @@ function callLove(){
 
 </body>
 </html>
+
+
 
 
 
