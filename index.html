@@ -340,26 +340,43 @@ video.addEventListener('ended', () => {
   music.play().catch(()=>{});
 });
 
-  /* ====== 🔗 FIX เพลงหายตอนออกลิงก์ ====== */
-let musicShouldResume = false;
+ /* ====== 🎵 เล่นเพลงต่อเมื่อแตะหน้าจอ ====== */
+let needResumeMusic = false;
 
-function resumeMusicAfterLink(){
+/* ตอนกดลิงก์ออก */
+function markNeedResume(){
   if (!music.paused) {
-    musicShouldResume = true;
+    needResumeMusic = true;
   }
-
-  window.addEventListener('focus', () => {
-    if (musicShouldResume) {
-      music.play().catch(()=>{});
-      musicShouldResume = false;
-    }
-  }, { once:true });
 }
+
+/* ตอนกลับมา */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && needResumeMusic) {
+    enableTapToResume();
+  }
+});
+
+/* แตะที่ไหนก็ได้ครั้งเดียว */
+function enableTapToResume(){
+  const handler = () => {
+    music.play().catch(()=>{});
+    needResumeMusic = false;
+
+    document.removeEventListener('click', handler);
+    document.removeEventListener('touchstart', handler);
+  };
+
+  document.addEventListener('click', handler, { once:true });
+  document.addEventListener('touchstart', handler, { once:true });
+}
+
 
 </script>
 
 </body>
 </html>
+
 
 
 
