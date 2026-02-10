@@ -271,6 +271,8 @@ button{
 <audio id="music" src="song.mp3"></audio>
 
 <script>
+const music = document.getElementById('music');
+const video = document.getElementById('loveVideo');
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -323,6 +325,7 @@ function callLove(){
 
 </body>
 </html>
+
 
 
 
