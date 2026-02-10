@@ -331,10 +331,6 @@ function callLove(){
 const music = document.getElementById('music');
 const video = document.getElementById('loveVideo');
 
-video.addEventListener('play', () => {
-  music.pause();
-});
-
 video.addEventListener('pause', () => {
   music.play().catch(()=>{});
 });
@@ -342,10 +338,22 @@ video.addEventListener('pause', () => {
 video.addEventListener('ended', () => {
   music.play().catch(()=>{});
 });
+
+/* ====== 🎵 FIX ตอนกดลิงก์ ====== */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    music.play().catch(()=>{});
+  }
+});
+
+window.addEventListener('focus', () => {
+  music.play().catch(()=>{});
+});
 </script>
 
 </body>
 </html>
+
 
 
 
