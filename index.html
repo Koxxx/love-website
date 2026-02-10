@@ -2,158 +2,73 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>ไม่บอกหรอก อิอิ🤭</title>
+<title>ไม่บอกหรอก อิอิ 🤭</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== GLOBAL ===== */
 body{
   margin:0;
   font-family:Arial, sans-serif;
   background:#fff0f5;
-  overflow:hidden; /* 🔒 กัน scroll เห็นหน้าสุดท้าย */
+  overflow:hidden;
 }
 
 .page{
   display:none;
   min-height:100vh;
   width:100%;
-  position:relative;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
 .page.active{
   display:flex;
+  flex-direction:column;
 }
 
-/* input / button */
 input,button{
   width:80%;
   max-width:320px;
   padding:12px;
   margin:10px auto;
   font-size:16px;
-  display:block;
 }
 
 button{
   background:hotpink;
   color:white;
   border:none;
-  border-radius:12px;
+  border-radius:14px;
   cursor:pointer;
 }
 
-/* ===== PAGE 1 : LOGIN ===== */
-#page1{
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
-
-/* ===== LOGIN FAIL ===== */
-#page1_5{
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
-
-/* ===== PAGE 2 : COUNTDOWN ===== */
-#page2{
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
-
-.countdown{
-  font-size:90px;
-  font-weight:bold;
-  color:#ff1493;
-}
-
-/* ===== PAGE 3 : HEART ===== */
+/* PAGE 3 */
 #page3{
-  justify-content:center;
-  align-items:center;
-  background:#fff0f5;
+  background:#ffe6f0;
 }
 
-.heart-wrapper{
-  position:absolute;
-  width:300px;
-  height:300px;
+.heart{
+  font-size:80px;
+  animation:float 2s infinite ease-in-out;
 }
 
-.heart-fly{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%, -50%);
-  font-size:64px;
-  animation:heartMove 10s linear infinite;
+@keyframes float{
+  50%{transform:translateY(-20px);}
 }
 
-.heart-fly::after{
-  content:"❤️";
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  font-size:18px;
-  opacity:0;
-  animation:heartTrail 10s linear infinite;
-}
-
-@keyframes heartMove{
-  0%   { transform:translate(-50%, -50%) translate(0,-90px); }
-  25%  { transform:translate(-50%, -50%) translate(120px,0); }
-  50%  { transform:translate(-50%, -50%) translate(0,90px); }
-  75%  { transform:translate(-50%, -50%) translate(-120px,0); }
-  100% { transform:translate(-50%, -50%) translate(0,-90px); }
-}
-
-@keyframes heartTrail{
-  0%{opacity:0;}
-  15%{opacity:.8;}
-  30%{opacity:0;}
-}
-
-.page3-ui{
-  position:absolute;
-  bottom:80px;
-  width:100%;
-  text-align:center;
-}
-
-/* ===== PAGE 4 : LETTER ===== */
+/* PAGE 4 */
 #page4{
-  justify-content:center;
-  align-items:center;
   background:#ffe4ec;
 }
 
-.letter-wrapper{
-  width:360px;
-  height:640px;
-  border-radius:18px;
-  padding:18px;
-  background:repeating-linear-gradient(
-    45deg,
-    #e63946 0 14px,
-    #ffffff 14px 28px,
-    #1d3557 28px 42px,
-    #ffffff 42px 56px
-  );
-}
-
-.letter-box{
-  background:#fffaf2;
-  height:100%;
-  border-radius:14px;
-  padding:22px;
-  text-align:center;
+.letter{
+  width:90%;
+  max-width:380px;
+  height:90vh;
+  background:#fff;
+  border-radius:20px;
+  padding:20px;
   overflow-y:auto;
 }
 
@@ -161,25 +76,21 @@ button{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
+  margin-top:15px;
 }
 
 .photo-grid img{
   width:100%;
-  border-radius:10px;
+  border-radius:12px;
 }
 
-.love-call{
-  margin-top:18px;
+.love-btn{
+  margin-top:20px;
   width:100%;
   padding:14px;
   font-size:18px;
   background:#ff4d88;
   border-radius:30px;
-  animation:pulse 1.8s infinite;
-}
-
-@keyframes pulse{
-  50%{ transform:scale(1.05); }
 }
 </style>
 </head>
@@ -194,83 +105,53 @@ button{
   <button onclick="login()">เข้าสู่ระบบ</button>
 </div>
 
-<!-- LOGIN FAIL -->
-<div class="page" id="page1_5">
-  <h2>😢</h2>
-  <p>เข้าสู่ระบบไม่ผ่าน</p>
-  <button onclick="go('page1')">ลองใหม่</button>
-</div>
-
 <!-- PAGE 2 -->
 <div class="page" id="page2">
   <h2>กำลังจะมีอะไรบางอย่าง 💓</h2>
-  <div class="countdown" id="count">3</div>
+  <h1 id="count">3</h1>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-  <div class="heart-wrapper">
-    <div class="heart-fly">💌</div>
-  </div>
-  <div class="page3-ui">
-    <p>ลองเปิดดูสิ 👀</p>
-    <button onclick="openLove()">เปิดซอง</button>
-  </div>
+  <div class="heart">💌</div>
+  <p>ลองเปิดดูสิ 👀</p>
+  <button onclick="openLove()">เปิดซอง</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-  <div class="letter-wrapper">
-    <div class="letter-box">
-      <h1>มาเป็นแฟนกันมั้ย 💖</h1>
-<p>
-ตลอดเวลาที่ผ่านมา เราสองคนเจออะไรมาด้วยกันเยอะมาก ทั้งที่จริงๆ แล้วมันอาจเป็นแค่จุดเริ่มต้น หรือบททดสอบหนึ่งของความสัมพันธ์  
-กว่าจะเดินมาถึงตรงนี้ได้ เราทั้งคู่ต่างก็หนักมาด้วยกัน  
-ทั้งเรื่องคำพูดที่บางครั้งอาจแรงไป  
-เรื่องอารมณ์ที่เปลี่ยนแปลง  
-เรื่องการทะเลาะกันอย่างรุนแรง  
-รวมถึงความไม่เข้าใจและความรู้สึกต่างๆ ที่เกิดขึ้น  
-<br><br>
+  <div class="letter">
+    <h1>มาเป็นแฟนกันมั้ย 💖</h1>
 
-แต่ถึงอย่างนั้น เราสองคนก็ยังจับมือกันผ่านมาได้  
-และที่สำคัญคือเราหาทางออกร่วมกันเสมอ  
-เค้าอยากขอบคุณเบบี๋จากใจจริง  
-ที่ให้โอกาสผู้ชายคนนี้ได้อยู่ในอนาคตร่วมกับเบบี๋ต่อไป  
-ทุกเรื่องที่เกิดขึ้นภายในระยะเวลาประมาณหนึ่งเดือนครึ่ง  
-มันเป็นช่วงเวลาที่เราปรับตัวเข้าหากันได้เร็วมาก  
-และมีความหมายกับเค้ามากจริงๆ  
-<br><br>
+    <p>
+    เค้าดีใจมากที่เราเดินมาถึงตรงนี้ได้  
+    ทุกอย่างที่ผ่านมา มันมีค่ากับเค้ามากจริงๆ  
+    ไม่ว่าเราจะทะเลาะ หรือไม่เข้าใจกันแค่ไหน  
+    เค้าก็ยังเลือกเบบี๋เสมอ 💗
+    </p>
 
-ในโอกาสวันวาเลนไทน์นี้  
-เค้าอยากตั้งใจขอเบบี๋เป็นแฟน  
-และเค้าสัญญาว่าจะอยู่เคียงข้างเบบี๋  
-ไม่ทำให้เบบี๋เสียใจหรือเสียความรู้สึก  
-ไม่ว่าเราสองคนจะต้องเจอกับเรื่องยากลำบากแค่ไหน  
-เค้าจะไม่ปล่อยมือเบบี๋  
-จะเป็นกำลังใจให้เสมอ  
-เป็นคนที่ปรึกษาได้  
-และเป็นที่พักพิงให้เบบี๋ในทุกๆ วัน 💗
-</p>
+    <video id="loveVideo" controls width="100%">
+      <source src="video.mp4">
+    </video>
 
-      <video controls width="100%">
-        <source src="video.mp4">
-      </video>
-
-      <div class="photo-grid">
-        <img src="img1.jpg">
-        <img src="img2.jpg">
-        <img src="img3.jpg">
-        <img src="img4.jpg">
-      </div>
-
-      <button class="love-call" onclick="callLove()">เป็นแฟนกัน 💖</button>
+    <div class="photo-grid">
+      <img src="img1.jpg">
+      <img src="img2.jpg">
+      <img src="img3.jpg">
+      <img src="img4.jpg">
     </div>
+
+    <button class="love-btn" onclick="callLove()">เป็นแฟนกัน 💖</button>
   </div>
 </div>
 
-<audio id="music" src="song.mp3"></audio>
+<!-- MUSIC -->
+<audio id="music" src="song.mp3" loop></audio>
 
 <script>
+const music = document.getElementById('music');
+const video = document.getElementById('loveVideo');
+
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -281,18 +162,18 @@ function login(){
     go('page2');
     startCountdown();
   }else{
-    go('page1_5');
+    alert("ชื่อหรือรหัสไม่ถูกต้อง 😢");
   }
 }
 
 function startCountdown(){
   let n=3;
   const el=document.getElementById('count');
-  const t=setInterval(()=>{
+  const timer=setInterval(()=>{
     n--;
     el.textContent=n;
     if(n===0){
-      clearInterval(t);
+      clearInterval(timer);
       go('page3');
     }
   },1000);
@@ -300,10 +181,22 @@ function startCountdown(){
 
 function openLove(){
   go('page4');
-  const m=document.getElementById('music');
-  m.volume=0.3;
-  m.play().catch(()=>alert("แตะหน้าจอเพื่อเปิดเพลง 🎵"));
+  music.volume=0.3;
+  music.play().catch(()=>alert("แตะหน้าจอเพื่อเปิดเพลง 🎵"));
 }
+
+/* 🎯 แก้ปัญหาเสียง */
+video.addEventListener('play', ()=>{
+  music.pause();
+});
+
+video.addEventListener('pause', ()=>{
+  music.play().catch(()=>{});
+});
+
+video.addEventListener('ended', ()=>{
+  music.play().catch(()=>{});
+});
 
 function callLove(){
   window.location.href="tel:0958682658";
@@ -312,6 +205,8 @@ function callLove(){
 
 </body>
 </html>
+
+
 
 
 
