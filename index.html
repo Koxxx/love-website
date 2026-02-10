@@ -267,11 +267,12 @@ button{
       </video>
       <p style="margin-top:10px; font-size:14px; color:#555;">
         ถ้าต้องการภาพชัด :
-        <a href="https://drive.google.com/file/d/1LMk7B8p8BO0_1ohVttxwltX7Jc9M_k9u/view?usp=sharing"
-           target="_blank"
-           style="color:#ff4d88; text-decoration:none; font-weight:bold;">
-          กดที่นี่ 💕
-        </a>
+<a href="https://drive.google.com/file/d/1LMk7B8p8BO0_1ohVttxwltX7Jc9M_k9u/view?usp=sharing"
+   target="_blank"
+   onclick="resumeMusicAfterLink()"
+   style="color:#ff4d88; text-decoration:none; font-weight:bold;">
+  กดที่นี่ 💕
+</a>
       </p>
 
       <div class="photo-grid">
@@ -339,20 +340,27 @@ video.addEventListener('ended', () => {
   music.play().catch(()=>{});
 });
 
-/* ====== 🎵 FIX ตอนกดลิงก์ ====== */
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) {
-    music.play().catch(()=>{});
-  }
-});
+  /* ====== 🔗 FIX เพลงหายตอนออกลิงก์ ====== */
+let musicShouldResume = false;
 
-window.addEventListener('focus', () => {
-  music.play().catch(()=>{});
-});
+function resumeMusicAfterLink(){
+  if (!music.paused) {
+    musicShouldResume = true;
+  }
+
+  window.addEventListener('focus', () => {
+    if (musicShouldResume) {
+      music.play().catch(()=>{});
+      musicShouldResume = false;
+    }
+  }, { once:true });
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
